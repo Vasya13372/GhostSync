@@ -76,41 +76,6 @@ hookmetamethod = function(obj, tar, rep)
     meta[tar] = rep
     return save
 end
-
--- Определяем функцию в глобальной среде
-function globalFunction(x, y)
-    return x * y
-end
-
--- Функция для перехвата вызовов
-function hookfunction(originalFunction, hookFunction)
-    assert(type(originalFunction) == "function", "originalFunction must be a function")
-    assert(type(hookFunction) == "function", "hookFunction must be a function")
-
-    -- Создаем метатаблицу для перехвата вызовов
-    local hookedFunction = function(...)
-        -- Вызываем хук-функцию перед оригинальной
-        hookFunction(...)
-        
-        -- Вызываем оригинальную функцию и возвращаем её результат
-        return originalFunction(...)
-    end
-
-    return hookedFunction
-end
-
--- Хук-функция
-local function myHook(x, y)
-    print("Hooked called with:", x, y)
-end
-
--- Перехватываем оригинальную функцию
-globalFunction = hookfunction(globalFunction, myHook)
-
--- Тестируем перехваченную функцию
-local result = globalFunction(4, 5)
-print("Result:", result) -- Должно напечатать "Hooked called with: 4 5" и затем 20
-
 function debug.getproto(f, index, mock)
     local proto_func = function() return true end  
     if mock then
