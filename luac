@@ -76,6 +76,17 @@ hookmetamethod = function(obj, tar, rep)
     meta[tar] = rep
     return save
 end
+
+function hookfunction(originalFunction, hookFunction)
+    assert(type(originalFunction) == "function", "originalFunction must be a function")
+    assert(type(hookFunction) == "function", "hookFunction must be a function")
+    local hookedFunction = function(...)
+        hookFunction(...)
+        return originalFunction(...)
+    end
+    return hookedFunction
+end
+
 function debug.getproto(f, index, mock)
     local proto_func = function() return true end  
     if mock then
