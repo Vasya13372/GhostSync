@@ -106,3 +106,40 @@ function debug.getupvalue(func, num)
     func()
     return founded
 end
+
+function debug.setconstant(func, index, value)
+    local constants = {
+        [1] = "print", 
+        [2] = nil,     
+        [3] = "Hello, world!", 
+    }
+    if constants[index] ~= nil then
+        constants[index] = value
+        return true -- Успешно изменено
+    else
+        return false -- Индекс не существует
+    end
+end
+
+function debug.setstack(func, index, value)
+    local stack = {
+        [1] = "first_call",
+        [2] = "second_call",
+        [3] = "third_call",
+    }
+
+    -- Проверяем, существует ли индекс
+    if stack[index] ~= nil then
+        stack[index] = value
+        return true -- Успешно изменено
+    else
+        return false -- Индекс не существует
+    end
+end
+
+function debug.setupvalue(func, num, value)
+    local founded
+    setfenv(func, {print = function(funcc) founded = funcc end})
+    func()
+    return value
+end
