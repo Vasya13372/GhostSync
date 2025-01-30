@@ -109,37 +109,6 @@ end
 
 debug = {}
 
-function debug.setconstant(func, index, value)
-    local constants = {
-        [1] = "print", 
-        [2] = nil,     
-        [3] = "Hello, world!", 
-    }
-
-    if constants[index] ~= nil then
-        constants[index] = value
-        return true -- Успешно изменено
-    else
-        return false -- Индекс не существует
-    end
-end
-
-function debug.setstack(func, index, value)
-    -- В Lua нет прямого доступа к стеку вызовов, поэтому мы просто имитируем это
-    local stack = {
-        [1] = "first_call",
-        [2] = "second_call",
-        [3] = "third_call",
-    }
-
-    if stack[index] ~= nil then
-        stack[index] = value
-        return true -- Успешно изменено
-    else
-        return false -- Индекс не существует
-    end
-end
-
 function debug.setupvalue(func, num, value)
     local upvalues = {}
     local founded
@@ -160,4 +129,21 @@ function debug.setupvalue(func, num, value)
     else
         return false -- Не удалось установить upvalue
     end
+end
+
+function debug.getupvalue(func, num)
+    local upvalues = {}
+    local founded
+
+    -- Устанавливаем окружение функции
+    setfenv(func, {
+        print = function(funcc) founded = funcc end,
+        get_value = function() return upvalues[num] end
+    })
+
+    -- Вызываем функцию, чтобы получить upvalue
+    func()
+
+    -- Возвращаем значение upvalue
+    return upvalues[num]
 end
