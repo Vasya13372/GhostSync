@@ -148,6 +148,19 @@ function debug.getupvalue(func, num)
     return upvalues[num]
 end
 
+function debug.setconstant(func, index, value)
+ local constants = {
+    [1] = "print", 
+    [2] = nil,     
+    [3] = "Hello, world!", 
+}
+    if value ~= nil then
+        constants[index] = value
+    else
+        return constants[index]
+    end	
+end
+
 local file = readfile("configs/Config.txt") 
 if file then
     local ua = file:match("([^\r\n]+)") 
