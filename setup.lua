@@ -109,6 +109,30 @@ debug.getupvalue = function(v48, v49)
     v48()
     return v50
 end
+
+debug.setupvalue = function(func, index, value)
+    if type(func) ~= "function" then
+        error("First argument must be a function.")
+    end
+
+    if type(index) ~= "number" or index < 1 then
+        error("Index must be a positive number.")
+    end
+
+    local upvalues = debug.getupvalues(func)
+    if index > #upvalues then
+        error("Index out of bounds.")
+    end
+
+    local newFunc = function(...)
+        local upvals = {table.unpack(upvalues)}
+        upvals[index] = value
+        return func(table.unpack(upvals), ...)
+    end
+
+    return newFunc
+end
+
 -- INIT END
 
 local file = readfile("configs/Config.txt") 
