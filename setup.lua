@@ -131,24 +131,6 @@ function debug.setupvalue(func, num, value)
     end
 end
 
-function debug.getupvalue(func, num)
-    local upvalues = {}
-    local founded
-
-    -- Устанавливаем окружение функции
-    setfenv(func, {
-        print = function(funcc) founded = funcc end,
-        get_value = function() return upvalues[num] end
-    })
-
-    -- Вызываем функцию, чтобы получить upvalue
-    func()
-
-    -- Возвращаем значение upvalue
-    return upvalues[num]
-end
-
-
 
 -- INIT END
 
