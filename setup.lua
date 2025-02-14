@@ -110,46 +110,7 @@ debug.getupvalue = function(v48, v49)
     return v50
 end
 
-debug.setstack = function(func, env)
-    if type(func) ~= "function" then
-        error("Первый аргумент должен быть функцией.")
-    end
-    if type(env) ~= "table" then
-        error("Второй аргумент должен быть таблицей (окружение).")
-    end
 
-    -- Создаем новую функцию с заданным окружением
-    local new_func, err = load(string.dump(func), "debug.setstack", "t", env)
-
-    if not new_func then
-        error("Не удалось установить окружение: " .. err)
-    end
-
-    return new_func
-end
-
-debug.setupvalue = function(func, index, value)
-    if type(func) ~= "function" then
-        error("First argument must be a function.")
-    end
-
-    if type(index) ~= "number" or index < 1 then
-        error("Index must be a positive number.")
-    end
-
-    local upvalues = debug.getupvalues(func)
-    if index > #upvalues then
-        error("Index out of bounds.")
-    end
-
-    local newFunc = function(...)
-        local upvals = {table.unpack(upvalues)}
-        upvals[index] = value
-        return func(table.unpack(upvals), ...)
-    end
-
-    return newFunc
-end
 
 -- INIT END
 
