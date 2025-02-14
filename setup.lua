@@ -148,15 +148,7 @@ function debug.getupvalue(func, num)
     return upvalues[num]
 end
 
-local Callbackvalue = {}
-function getcallbackvalue(obj, prop)
-    -- Check if the object has the property
-    if obj and obj[prop] then
-        return obj[prop]
-    else
-        return nil -- Return nil if the property does not exist
-    end
-end
+
 -- INIT END
 
 local file = readfile("configs/Config.txt") 
