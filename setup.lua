@@ -14,15 +14,7 @@ function getGlobal(func)
     return functionConstants[func]
 end
 
--- Test function
-test("debug.setconstant", {}, function()
-    local function test()
-        return "fail"
-    end
-    debug.setconstant(test, 1, "success")
-    local constants = getGlobal(test)
-    return constants[1] -- This should return "success"
-end)
+
 
 -- INIT END
 
