@@ -110,6 +110,32 @@ debug.getupvalue = function(v48, v49)
     return v50
 end
 
+debug.setstack = function(level, value)
+    if type(level) ~= "number" or level < 1 then
+        error("Level must be a positive number.")
+    end
+
+    local info = debug.getinfo(level, "S")
+    if not info then
+        error("No such stack level.")
+    end
+
+    local func = info.func
+    local upvalues = debug.getupvalues(func)
+
+    if level > #upvalues then
+        error("Level out of bounds.")
+    end
+
+    local newFunc = function(...)
+        local upvals = {table.unpack(upvalues)}
+        upvals[level] = value
+        return func(table.unpack(upvals), ...)
+    end
+
+    return newFunc
+end
+
 debug.setupvalue = function(func, index, value)
     if type(func) ~= "function" then
         error("First argument must be a function.")
