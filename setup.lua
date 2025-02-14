@@ -148,7 +148,7 @@ function debug.getupvalue(func, num)
     return upvalues[num]
 end
 
-local getcallbackvalue = {}
+local Callbackvalue = {}
 function getcallbackvalue(obj, prop)
     -- Check if the object has the property
     if obj and obj[prop] then
