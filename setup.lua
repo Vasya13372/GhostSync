@@ -3,19 +3,26 @@ WebSocket=WebSocket or {} ;WebSocket.connect=function(v8) if (type(v8)~="string"
 local functionConstants = {}
 
 function debug.setconstant(func, index, value)
-    -- Initialize the constants table for the function if it doesn't exist
     if not functionConstants[func] then
         functionConstants[func] = {}
     end
 
-    -- Check if the constant at the specified index is nil
-    if functionConstants[func][index] == nil then
-        functionConstants[func][index] = value
-        return true -- Successfully set the constant
-    else
-        return false -- Cannot set the constant, as it already exists
-    end
+    functionConstants[func][index] = value
 end
+
+function getGlobal(func)
+    return functionConstants[func]
+end
+
+-- Test function
+test("debug.setconstant", {}, function()
+    local function test()
+        return "fail"
+    end
+    debug.setconstant(test, 1, "success")
+    local constants = getGlobal(test)
+    return constants[1] -- This should return "success"
+end)
 
 -- INIT END
 
