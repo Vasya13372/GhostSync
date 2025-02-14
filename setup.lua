@@ -8,11 +8,9 @@ function debug.setconstant(func, index, value)
     end
 
     functionConstants[func][index] = value
+ return functionConstants[func]
 end
 
-function getGlobal(func)
-    return functionConstants[func]
-end
 
 
 
