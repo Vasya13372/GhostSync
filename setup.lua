@@ -110,7 +110,7 @@ debug.getupvalue = function(v48, v49)
     return v50
 end
 
-local function setreadonly(tbl, isReadOnly)
+setreadonly = function(tbl, isReadOnly)
     local mt = getmetatable(tbl) or {}
     if isReadOnly then
         mt.__newindex = function(_, key)
