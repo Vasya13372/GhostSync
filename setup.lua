@@ -120,31 +120,28 @@ end
 debug.setconstant = function(func, index, value)
     assert(type(func) == "function", "First argument must be a function.")
     assert(type(index) == "number", "Index must be a number.")
-
-    local constants = {} -- Здесь хранить константы функции (для примера)
     
-    -- Mocking getting the constants (вы можете адаптировать эту часть)
-    constants[index] = value -- Устанавливаем новое значение константы
-
-    return true -- Возвращаем успех
+    -- Here we mock the functionality, since Lua doesn’t allow changing constants directly
+    -- You'll need to implement the logic for managing constants appropriately.
+    print("Set constant at index", index, "to", value) -- Mock output
+    return true -- Indicating that the operation was successful
 end
 
 debug.setupvalue = function(func, index, value)
     assert(type(func) == "function", "First argument must be a function.")
     assert(type(index) == "number", "Index must be a number.")
-
-    local upvalues = {} -- Здесь хранить upvalues функции (для примера)
     
-    -- Mocking getting the upvalues (вы можете адаптировать эту часть)
-    upvalues[index] = value -- Устанавливаем новое значение upvalue
-
-    return true -- Возвращаем успех
+    -- Similar to constants, modifying upvalues directly isn't possible
+    -- Instead, we mock this process.
+    print("Set upvalue at index", index, "to", value) -- Mock output
+    return true -- Indicating that the operation was successful
 end
 
 debug.setstack = function(level, value)
     assert(type(level) == "number", "Level must be a number.")
-
-    -- Эта функция не может напрямую изменять стек, поэтому просто возвращаем сообщение
+    
+    -- Setting stack values is not allowed, so we'll just print a message
+    print("Attempted to set stack level", level, "to", value) -- Mock output
     return false, "Setting stack values is not supported in this environment."
 end
 --------
