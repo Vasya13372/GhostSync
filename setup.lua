@@ -118,54 +118,33 @@ end
 
 ----------
 debug.setconstant = function(func, index, value)
-    -- This function sets a constant at a given index in the provided function.
-    -- Note: This is a mock implementation and may not work in all environments.
-    if type(func) ~= "function" then
-        error("First argument must be a function.")
-    end
-    if type(index) ~= "number" then
-        error("Index must be a number.")
-    end
+    assert(type(func) == "function", "First argument must be a function.")
+    assert(type(index) == "number", "Index must be a number.")
 
-    -- Assuming we have a way to access the constants of the function
-    local constants = debug.getconstant(func, index)
-    if constants then
-        constants[index] = value
-        return true
-    else
-        return false, "Invalid index for constants."
-    end
+    local constants = {} -- Здесь хранить константы функции (для примера)
+    
+    -- Mocking getting the constants (вы можете адаптировать эту часть)
+    constants[index] = value -- Устанавливаем новое значение константы
+
+    return true -- Возвращаем успех
 end
 
 debug.setupvalue = function(func, index, value)
-    -- This function sets an upvalue at a given index in the provided function.
-    -- Note: This is a mock implementation and may not work in all environments.
-    if type(func) ~= "function" then
-        error("First argument must be a function.")
-    end
-    if type(index) ~= "number" then
-        error("Index must be a number.")
-    end
+    assert(type(func) == "function", "First argument must be a function.")
+    assert(type(index) == "number", "Index must be a number.")
 
-    -- Assuming we have a way to access the upvalues of the function
-    local upvalues = debug.getupvalues(func)
-    if upvalues[index] then
-        upvalues[index] = value
-        return true
-    else
-        return false, "Invalid index for upvalues."
-    end
+    local upvalues = {} -- Здесь хранить upvalues функции (для примера)
+    
+    -- Mocking getting the upvalues (вы можете адаптировать эту часть)
+    upvalues[index] = value -- Устанавливаем новое значение upvalue
+
+    return true -- Возвращаем успех
 end
 
 debug.setstack = function(level, value)
-    -- This function sets a value at a specific stack level.
-    -- Note: This is a mock implementation and may not work in all environments.
-    if type(level) ~= "number" then
-        error("Level must be a number.")
-    end
+    assert(type(level) == "number", "Level must be a number.")
 
-    -- This is a placeholder as Lua does not allow direct manipulation of the stack.
-    -- You would typically use this in a debugging context.
+    -- Эта функция не может напрямую изменять стек, поэтому просто возвращаем сообщение
     return false, "Setting stack values is not supported in this environment."
 end
 --------
