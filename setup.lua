@@ -117,16 +117,18 @@ debug.getupvalue = function(v48, v49)
 end
 
 ----------
-debug.setupvalue = function(v48, v49, v50)
-    local v56
-    setfenv(
-        v48,
-        {print = function(value)
-                v56 = value
-            end}
-    )
-    v48()
-    return v56
+debug.setupvalue = function(func, index, value)
+    -- Get the current upvalue name and value
+    local upvalueName, upvalueValue = debug.getupvalue(func, index)
+    
+    -- If the upvalue exists, set it to the new value
+    if upvalueName then
+        -- Use debug.setupvalue to set the new value
+        debug.setupvalue(func, index, value)
+        return true -- Indicate success
+    else
+        return false -- Indicate failure (upvalue does not exist)
+    end
 end
 ----------
 
