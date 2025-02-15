@@ -117,15 +117,15 @@ debug.getupvalue = function(v48, v49)
 end
 
 ----------
-debug.setupvalue = function(v60, v61, v62)
+debug.setupvalue = function(v48, v49, v50)
     local v56
     setfenv(
-        v60,
+        v48,
         {print = function(value)
                 v56 = value
             end}
     )
-    v60()
+    v48()
     return v56
 end
 ----------
