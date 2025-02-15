@@ -117,7 +117,22 @@ debug.getupvalue = function(v48, v49)
 end
 
 ----------
-
+debug.setupvalue = function(func, upvalueIndex, value)
+    -- Получаем текущее окружение функции
+    local currentEnv = getfenv(func)
+    
+    -- Мы создаем новую функцию, которая будет служить мостом
+    local newFunc = function(...)
+        -- Устанавливаем значение для upvalue
+        currentEnv[upvalueIndex] = value
+        -- Вызов оригинальной функции с переданными аргументами
+        return func(...)
+    end
+    
+    -- Устанавливаем новое окружение для новой функции
+    setfenv(newFunc, currentEnv)
+    return newFunc
+end
 ----------
 
 local v0 = table
