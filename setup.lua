@@ -215,6 +215,7 @@ end
 
 local v1 = {}
 local v2 = setmetatable
+
 function setmetatable(v10, v11)
     local v12 = v2(v10, v11)
     v1[v12] = v11
@@ -237,6 +238,7 @@ function setrawmetatable(v15, v16)
 end
 
 local v3 = {}
+
 function sethiddenproperty(v18, v19, v20)
     if (not v18 or (type(v19) ~= "string")) then
         error("Failed to set hidden property '" .. tostring(v19) .. "' on the object: " .. tostring(v18))
@@ -263,10 +265,8 @@ end
 
 function hooknamecallmethod(v27)
     assert(type(v27) == "table", "invalid argument #1 to 'hooknamecallmethod' (table expected, got " .. type(v27) .. ")", 2)
-
     local mt = getrawmetatable(v27)
     local originalNamecall = mt.__namecall
-
     mt.__namecall = function(self, ...)
         namecallMethod = debug.getinfo(2, "n").name -- Store the name of the method being called
         return originalNamecall(self, ...)
@@ -311,7 +311,6 @@ debug.getconstant = function(v43, v44)
     local v45 = {[1] = "print", [2] = nil, [3] = "Hello, world!"}
     return v45[v44]
 end
-
 debug.getupvalues = function(v46)
     local v47
     setfenv(
