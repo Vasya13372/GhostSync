@@ -118,12 +118,22 @@ end
 
 ----------
 debug.setupvalue = function(func, index, value)
-    -- Get the current upvalue name and value
-    local upvalueName, upvalueValue = debug.getupvalue(func, index)
+    local success
+    setfenv(
+        func,
+        {
+            print = function(newValue)
+                success = newValue
+            end
+        }
+    )
     
-    -- If the upvalue exists, set it to the new value
+    -- Attempt to set the upvalue
+    local upvalueName, upvalueValue = debug.getupvalue(func, index)
     if upvalueName then
-        -- Use debug.setupvalue to set the new value
+        -- Here we simulate setting the upvalue by calling the function
+        -- with the new value. In a real scenario, you would use the
+        -- debug library's setupvalue function.
         debug.setupvalue(func, index, value)
         return true -- Indicate success
     else
