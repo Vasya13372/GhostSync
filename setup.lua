@@ -117,29 +117,7 @@ debug.getupvalue = function(v48, v49)
 end
 
 ----------
-debug.setupvalue = function(func, index, value)
-    local success
-    setfenv(
-        func,
-        {
-            print = function(newValue)
-                success = newValue
-            end
-        }
-    )
-    
-    -- Attempt to set the upvalue
-    local upvalueName, upvalueValue = debug.getupvalue(func, index)
-    if upvalueName then
-        -- Here we simulate setting the upvalue by calling the function
-        -- with the new value. In a real scenario, you would use the
-        -- debug library's setupvalue function.
-        debug.setupvalue(func, index, value)
-        return true -- Indicate success
-    else
-        return false -- Indicate failure (upvalue does not exist)
-    end
-end
+
 ----------
 
 local v0 = table
