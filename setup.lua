@@ -115,6 +115,61 @@ debug.getupvalue = function(v48, v49)
     v48()
     return v50
 end
+
+----------
+debug.setconstant = function(func, index, value)
+    -- This function sets a constant at a given index in the provided function.
+    -- Note: This is a mock implementation and may not work in all environments.
+    if type(func) ~= "function" then
+        error("First argument must be a function.")
+    end
+    if type(index) ~= "number" then
+        error("Index must be a number.")
+    end
+
+    -- Assuming we have a way to access the constants of the function
+    local constants = debug.getconstant(func, index)
+    if constants then
+        constants[index] = value
+        return true
+    else
+        return false, "Invalid index for constants."
+    end
+end
+
+debug.setupvalue = function(func, index, value)
+    -- This function sets an upvalue at a given index in the provided function.
+    -- Note: This is a mock implementation and may not work in all environments.
+    if type(func) ~= "function" then
+        error("First argument must be a function.")
+    end
+    if type(index) ~= "number" then
+        error("Index must be a number.")
+    end
+
+    -- Assuming we have a way to access the upvalues of the function
+    local upvalues = debug.getupvalues(func)
+    if upvalues[index] then
+        upvalues[index] = value
+        return true
+    else
+        return false, "Invalid index for upvalues."
+    end
+end
+
+debug.setstack = function(level, value)
+    -- This function sets a value at a specific stack level.
+    -- Note: This is a mock implementation and may not work in all environments.
+    if type(level) ~= "number" then
+        error("Level must be a number.")
+    end
+
+    -- This is a placeholder as Lua does not allow direct manipulation of the stack.
+    -- You would typically use this in a debugging context.
+    return false, "Setting stack values is not supported in this environment."
+end
+--------
+
 local v0 = table
 table = v0.clone(v0)
 table.freeze = function(v8, v9)
