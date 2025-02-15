@@ -117,34 +117,18 @@ debug.getupvalue = function(v48, v49)
 end
 
 ----------
-debug.setconstant = function(func, index, value)
-    assert(type(func) == "function", "First argument must be a function.")
-    assert(type(index) == "number", "Index must be a number.")
-    
-    -- Here we mock the functionality, since Lua doesn’t allow changing constants directly
-    -- You'll need to implement the logic for managing constants appropriately.
-    print("Set constant at index", index, "to", value) -- Mock output
-    return true -- Indicating that the operation was successful
+debug.setupvalue = function(v60, v61, v62)
+    local v56
+    setfenv(
+        v60,
+        {print = function(value)
+                v56 = value
+            end}
+    )
+    v60()
+    return v56
 end
-
-debug.setupvalue = function(func, index, value)
-    assert(type(func) == "function", "First argument must be a function.")
-    assert(type(index) == "number", "Index must be a number.")
-    
-    -- Similar to constants, modifying upvalues directly isn't possible
-    -- Instead, we mock this process.
-    print("Set upvalue at index", index, "to", value) -- Mock output
-    return true -- Indicating that the operation was successful
-end
-
-debug.setstack = function(level, value)
-    assert(type(level) == "number", "Level must be a number.")
-    
-    -- Setting stack values is not allowed, so we'll just print a message
-    print("Attempted to set stack level", level, "to", value) -- Mock output
-    return false, "Setting stack values is not supported in this environment."
-end
---------
+----------
 
 local v0 = table
 table = v0.clone(v0)
